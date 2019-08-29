@@ -63,6 +63,19 @@ If parent is an optional field then this API supports in addition simple, virtua
 # GraphQL
 
 ```graphql
+input CartProduct
+{
+    sku: String!
+    qty: Float
+    parent: String,
+    options: [String!]
+    buyerInput: [String!]
+}
+
+mutation addProductToCart($cartId :String, $products: [CartProduct!]!) : Cart
+```
+
+```graphql
 input WishlistProduct
 {
     sku: String
@@ -71,6 +84,5 @@ input WishlistProduct
     buyerInput: [String!]
 }
 
-mutation addProductToCart($cartId :String, $products: [CartProduct!]!) : Cart
 mutation addProductToWishlist($wishlistId :String, $products: [WishlistProduct!]!) : Wishlist
 ```
