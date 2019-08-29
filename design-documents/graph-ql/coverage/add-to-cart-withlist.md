@@ -16,8 +16,8 @@ As usual, this is a broad definition from file to the money amount, description 
 * The differences in payloads between wishlist and cart are:
   * wishlist does not have a quantity.
   * wishlist has all fields as optional.
-* From checkout/wishlist standpoint here not differences between bundle fixed and simple with options.
-The difference happens only at the backend, when we have to manage inventory.
+* From checkout/wishlist standpoint, there are no differences between bundle which does not manage stock of items and simple with options.
+  The difference happens only at the backend when we have to manage inventory.
 
 # Assumptions
 * All options values can be uniquely in a scope of a Magento instance.
@@ -39,8 +39,8 @@ The difference happens only at the backend, when we have to manage inventory.
   }
 ]
 ```
-Supports simple, virtual, downloadable, giftcard, bundle fixed
-Note, bundle fixed acts exactly as simple products with customizable options so that it can be added to cart in the same manner.
+Supports simple, virtual, downloadable, giftcard, bundle if bundle does not allow to change items qty.
+Note, bundle with fixed stock acts exactly as simple products with customizable options so that it can be added to cart in the same manner.
 The main difference between the complex and simple product is a possibility to specify qty for an option.  
 
 ```json
@@ -57,8 +57,32 @@ The main difference between the complex and simple product is a possibility to s
   }
 ]
 ```
+
 Supports configurable and bundle dynamic, (bundle items will be aggregated into single line items per bundle SKU per mutation call)
 If parent is an optional field then this API supports in addition simple, virtual, downloadable, giftcard.
+
+Exception, Bundle Fixed which allows to specify custom inventory number.
+
+```json
+[
+  {
+    "parent": "parent-sku",
+    "elements" : [
+      {
+          "sku": "sku",
+          "qty": 1
+      }
+    ],
+    "options" : [
+      "variant1",
+      "variant2"
+    ],
+    "buyerInput": "TBD not in the scope of this document, we can use an input format that we have right now which is just a string"
+  }
+ ]
+
+```
+
 
 # GraphQL
 
